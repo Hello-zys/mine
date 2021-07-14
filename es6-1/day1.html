@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es6-1</title>
+</head>
+
+<body>
+    <script>
+        // 1、变量的声明 var，let，const
+        console.log('type of ',typeof a);
+        a=100;
+        function a(){
+            console.log('aa',a);//这个a是上面那个a=100
+            a=200;
+        }
+        console.log('typeof a...',a);  //这个a是a这个函数
+        // a();
+        console.log('a2',typeof a); //这个a是number类型
+
+
+        for(var i=0;i<5;i++){
+            setTimeout(()=>{
+                console.log('时间分界线',i); //var类型 打印出来五个5
+            })  //如果想打印出0 1 2 3 4 把var改成let
+        }
+
+        let b=100;
+        {
+            let c=200;
+            console.log('b',b,c); //这个b=100 c=200
+        }
+
+    </script>
+</body>
+
+</html>
