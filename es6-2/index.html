@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //构造函数
+        function Person(name){
+            console.dir(this);  //打印出来的是 Person  里面有下面的五个task方法
+            //检测一个对象是否存在于另一个对象的原型链中
+            //判断该函数是否是通过new形式调用的
+            if(!Person.prototype.isPrototypeOf(this)){
+                return new Person(name)
+            }
+            //讲方法按照要求排序 添加到数组
+            this.tasks=[];
+            this.init(name);
+            //在创建一个方法调用
+            //再执行run函数
+            setTimeout(()=>{
+                this.run()
+            },0);
+        }
+        //给构造函数添加实例的方法
+        Person.prototype={
+            async run(){
+                //循环调用添加到数组中函数
+                for(let val of this.tasks){
+                    await val()
+                }
+            },
+            init(name){
+                function task(){
+                    console.log(name);//tom
+                }
+                this.tasks.push(task);
+                return this;
+            },
+            eat(type){
+                function task(){
+                    console.log(type);//香蕉  吃火腿
+                }
+                this.tasks.push(task);
+
+                //想要在eat方法李调用原型上的其他方法  返回this
+                return this;
+            },
+            sleep(time){
+                function task(){
+                    return new Promise(resolve=>{
+                        setTimeout(()=>{
+                            console.log(time);//3000
+                            resolve()
+                        },time);
+                    })
+                }
+                this.tasks.push(task);
+                return this;
+            },
+
+            sleepFirst(time){
+                function task(){
+                    return new Promise(resolve=>{
+                        setTimeout(()=>{
+                            console.log(time);//2000
+                            resolve()
+                        },time);
+                    })
+                }
+                this.tasks.unshift(task);
+                return this;
+            }
+        }
+        Person('this is Tom').eat('正在吃香蕉').sleep(3000).eat('正在吃苹果').sleepFirst(2000).eat('吃火腿');
+    </script>
+</body>
+
+</html>

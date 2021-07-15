@@ -34,6 +34,27 @@
             console.log('b',b,c); //这个b=100 c=200
         }
 
+        const e={};
+        e.log=console.log;
+        e.log('e--',e);
+        //2、模板字符串
+        const message=`hello ${e.log.toString()}!`;  //native code
+        console.log('message---',message);
+
+        //数组扩展
+        const arr=[1,2,3,4,5,6];
+        const arr1=arr;
+        console.log(arr1);
+        console.log([...arr]);
+        Array.isArray(document.body.childNodes); //false 伪数组
+        Array.isArray([...document.body.childNodes]);//true [...]把伪数组转成数组
+        Array.from(document.body.childNodes);//把伪数组转成数组，数组长度由length决定
+
+        //对象扩展
+        //六大基础类型 undefined null boolean number string symbol
+        const reactElement=Symbol('@@reactElement');
+        const newElement=Symbol('@@reactElement');
+        console.log('reactElement',reactElement,newElement,);
     </script>
 </body>
 
